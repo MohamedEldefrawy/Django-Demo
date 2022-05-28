@@ -23,15 +23,24 @@ def home(request):
     return render(request, 'todoList/to_do_list.html', context={"data": todo})
 
 
-def show(request, **kwargs):
-    return render(request, 'todoList/to_do_details.html', context={})
-
-
 def create(request):
-    return render(request, 'todoList/to_do_create.html', context={})
+    return render(request, 'todoList/to_do_create.html')
+
+
+def save(request):
+    print(request)
+    if request.method == "POST":
+        task_name = request.POST["taskName"]
+        todo.append({
+            "name": task_name,
+            "status": False
+        })
+    return redirect(reverse("todo:home"))
 
 
 def update(request, **kwargs):
+    print(kwargs["name"])
+
     return render(request, 'todoList/to_do_update.html', context={})
 
 
