@@ -12,3 +12,11 @@ def home(request):
 
 def show(request, **kwargs):
     return render(request, 'todoList/to_do_details.html', context={})
+
+
+def create(request, **kwargs):
+    return render(request, 'todoList/to_do_create.html', context={})
+
+
+def update(request, **kwargs):
+    return render(request, 'todoList/to_do_update.html', context={})
