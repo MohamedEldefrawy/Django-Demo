@@ -1,4 +1,37 @@
 {% extends 'base.html' %}
 {% block content %}
-    Content
+    <a href="{% url 'todo:create' %}" class="btn btn-success m-5"><i class="bi bi-plus-square-fill"></i></a>
+    <table class="table table-bordered table-hover table-striped text-center">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in data %}
+            <tr>
+                <td>
+                    {{ item.name }}
+                </td>
+                <td>
+                    {% if item.status %}
+                        <span class="text-center text-success">Done</span>
+                    {% else %}
+                        <span class="text-center text-primary">Active</span>
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="{% url 'todo:done' item.name %}" class="btn btn-primary"><i
+                            class="bi bi-check2-square"></i></a>
+                    <a href="{% url 'todo:update' item.name %}" class="btn btn-warning"><i
+                            class="bi bi-journal-arrow-up"></i></a>
+                    <a href="{% url 'todo:delete' item.name %}" class="btn btn-danger"><i class="bi bi-trash"></i></a>
+
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}
