@@ -14,7 +14,6 @@ todo = [
         "name": "chilling",
         "status": False
     },
-
 ]
 
 
@@ -28,7 +27,6 @@ def create(request):
 
 
 def save(request):
-    print(request)
     if request.method == "POST":
         task_name = request.POST["taskName"]
         todo.append({
@@ -39,12 +37,19 @@ def save(request):
 
 
 def update(request, **kwargs):
-    print(kwargs["name"])
-
     return render(request, 'todoList/to_do_update.html', context={})
 
 
+def contains(tasks, predicate):
+    for task in tasks:
+        if predicate(task):
+            return task
+
+
 def delete(request, **kwargs):
+    task_name = kwargs["name"]
+    selected_task = contains(todo, lambda x: x["name"] == task_name)
+    todo.remove(selected_task)
     return redirect(reverse("todo:home"))
 
 
