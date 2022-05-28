@@ -54,4 +54,7 @@ def delete(request, **kwargs):
 
 
 def done(request, **kwargs):
+    task_name = kwargs["name"]
+    selected_task = contains(todo, lambda x: x["name"] == task_name)
+    selected_task["status"] = not selected_task["status"]
     return redirect(reverse("todo:home"))
